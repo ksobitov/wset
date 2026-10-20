@@ -1,9 +1,12 @@
 # Packaging
 
 Pushing a `v*` tag runs [release.yml](../.github/workflows/release.yml).
-It builds static amd64 and arm64 .debs with cargo-deb, attaches them to a
-GitHub release, and pushes a signed APT repository, made by
-[apt/build-repo.sh](apt/build-repo.sh), to the `gh-pages` branch.
+It runs the tests, builds static amd64 and arm64 .debs with cargo-deb,
+attaches them to a GitHub release, and pushes a signed APT repository, made
+by [apt/build-repo.sh](apt/build-repo.sh), to the `gh-pages` branch.
+The repository keeps the packages of earlier releases, and only the newest
+tag updates it. A failed run can be re-run; it replaces the release's
+packages.
 
 One-time setup, the same as for wbanish:
 

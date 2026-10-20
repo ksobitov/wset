@@ -19,6 +19,7 @@ Source and documentation: <a href="https://github.com/ksobitov/wset">github.com/
 <pre>sudo apt install -y curl
 sudo install -d -m 0755 /etc/apt/keyrings
 sudo curl -fsSLo /etc/apt/keyrings/wset.asc https://ksobitov.github.io/wset/wset.asc
+sudo chmod 644 /etc/apt/keyrings/wset.asc
 sudo tee /etc/apt/sources.list.d/wset.sources &lt;&lt;EOF
 Types: deb
 URIs: https://ksobitov.github.io/wset
@@ -28,6 +29,9 @@ Signed-By: /etc/apt/keyrings/wset.asc
 EOF
 sudo apt update
 sudo apt install wset</pre>
+
+<p>The repository is signed with the key
+<code>035B 17F4 3B9A A0B0 25D2 4DE5 DA38 B63C 9450 3CEB</code>.</p>
 
 <p>Then, for example: <code>wset r rate 210 30</code></p>
 </body>

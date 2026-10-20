@@ -1,0 +1,17 @@
+wset (0.2.0-1) stable; urgency=medium
+
+  * r rate works like xset's: 660 and 25 for missing values, an interval of
+    1000 / rate, and it turns auto-repeat on.
+  * GNOME: r, r on/off and q no longer need a Wayland connection, so wset
+    also works in a GNOME X11 session; check that GSettings kept the values.
+  * Sway: set every keyboard, including those with their own input block,
+    and check that sway took the values.
+  * q prints the lines xset q uses; take -q, --help and --version.
+
+ -- Komiljon Sobitov <komiljon.sobitov.uzb@gmail.com>  Tue, 20 Oct 2026 15:00:00 +0500
+
+wset (0.1.0-1) stable; urgency=medium
+
+  * Initial release.
+
+ -- Komiljon Sobitov <komiljon.sobitov.uzb@gmail.com>  Tue, 20 Oct 2026 12:37:18 +0500

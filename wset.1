@@ -1,4 +1,4 @@
-.Dd $Mdocdate: October 20 2026$
+.Dd October 20, 2026
 .Dt WSET 1
 .Os
 .Sh NAME
@@ -8,6 +8,8 @@
 .Nm
 .Op Fl d
 .Ar option ...
+.Nm
+.Fl h | Fl V
 .Sh DESCRIPTION
 .Nm
 changes keyboard auto-repeat with the same options as
@@ -29,13 +31,17 @@ Turn auto-repeat off.
 .It Ic r rate Op Ar delay Op Ar rate
 Wait
 .Ar delay
-milliseconds before a held key starts repeating, then repeat it
+milliseconds (1 to 10000, 660 if not given) before a held key starts
+repeating, then repeat it
 .Ar rate
-times per second.
-Without values, go back to the desktop's defaults.
-.It Ic q
+times per second (1 to 255, 25 if not given), and turn auto-repeat on.
+.It Ic q , Fl q
 Show the current settings, as the compositor reports them to applications.
 This works on any compositor.
+.It Fl h , Fl Fl help
+Show a summary of the options.
+.It Fl V , Fl Fl version
+Show the version.
 .El
 .Pp
 Options are carried out in order, so
@@ -47,3 +53,8 @@ Wait 210 ms, then repeat 30 times a second:
 .Dl $ wset r rate 210 30
 .Sh SEE ALSO
 .Xr xset 1
+.Sh CAVEATS
+Unlike
+.Xr xset 1 ,
+.Fl d
+does not take a display, and auto-repeat cannot be set for single keys.

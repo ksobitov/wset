@@ -1,0 +1,3 @@
+# The binary is static, so it needs no libraries and no Depends.
+wset: empty-field Depends
+wset: shared-library-lacks-prerequisites [usr/bin/wset]
