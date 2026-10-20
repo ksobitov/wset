@@ -1,0 +1,62 @@
+Package: wset
+Architecture: arm64
+Version: 0.1.0-1
+Priority: optional
+Section: utils
+Maintainer: Komiljon Sobitov <komiljon.sobitov.uzb@gmail.com>
+Installed-Size: 590
+Depends:
+Filename: pool/main/wset_0.1.0-1_arm64.deb
+Size: 232624
+MD5sum: fefa308dcb4ed59156b153cc7516494c
+SHA1: 198146a8fae09450f9ed87ed0cb6406ddefad622
+SHA256: c27c3a93c50d85fd8b47f572d9710713389290ebacec53f1b3947fbb89f4aed0
+SHA512: a6b0196e15ea6ca7328ded9bc86a014bb1912427c3e5e45a2bf0c286f40048b0581cccfc668a342e3fcbeaa0abca7e8296f7f1902618562b468000162d3c9c5e
+Homepage: https://github.com/ksobitov/wset
+Description: Set keyboard auto-repeat on Wayland, like xset r rate
+ wset changes keyboard auto-repeat on Wayland, with the same commands as xset:
+ wset r rate 210 30 sets a 210 ms delay and 30 repeats per second. It supports
+ GNOME and Sway, and wset q shows the settings any compositor uses.
+
+Package: wset
+Architecture: arm64
+Version: 0.2.0-1
+Priority: optional
+Section: utils
+Maintainer: Komiljon Sobitov <komiljon.sobitov.uzb@gmail.com>
+Installed-Size: 659
+Depends:
+Recommends: libglib2.0-bin
+Filename: pool/main/wset_0.2.0-1_arm64.deb
+Size: 249244
+MD5sum: 6aa18170306c976ca07e2775b85f283f
+SHA1: c2c5099a328bdc7b22499dd43112a325d919c240
+SHA256: a3ec6124690958b89603a2ca4604621fd5c7a487a31ebe0f000d0854cc560403
+SHA512: 963509812c6568139e7acbaf27e62e8feef3b5a7da24457a27a9a3b39563953b126857b3efe709cee3038eccec7fd45926538b912944bdd4d67201b1826c9340
+Homepage: https://github.com/ksobitov/wset
+Description: Set keyboard auto-repeat on Wayland, like xset r rate
+ wset changes keyboard auto-repeat on Wayland, with the same commands as xset:
+ wset r rate 210 30 sets a 210 ms delay and 30 repeats per second. It supports
+ GNOME and Sway, and wset q shows the settings any compositor uses.
+
+Package: wset
+Architecture: arm64
+Version: 0.2.1-1
+Priority: optional
+Section: utils
+Maintainer: Komiljon Sobitov <komiljon.sobitov.uzb@gmail.com>
+Installed-Size: 660
+Depends:
+Recommends: libglib2.0-bin
+Filename: pool/main/wset_0.2.1-1_arm64.deb
+Size: 249280
+MD5sum: c91cf13928d158b14aff519bbd53063f
+SHA1: 7ae73b5438d7af7d919d934a858e07333342792b
+SHA256: c767804e236e1e100edb9985ab0fdb97fbca1aa6193b4faa0730d41fe3d2919f
+SHA512: 0dc75a43bccc78783ab0c9fd91d176dc0ae6adf48bc5e9f1ebe4352d254d131541373aae69602f72663800c392a86064200dced723af4d864486144b514284fd
+Homepage: https://github.com/ksobitov/wset
+Description: Set keyboard auto-repeat on Wayland, like xset r rate
+ wset changes keyboard auto-repeat on Wayland, with the same commands as xset:
+ wset r rate 210 30 sets a 210 ms delay and 30 repeats per second. It supports
+ GNOME and Sway, and wset q shows the settings any compositor uses.
+
