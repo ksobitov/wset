@@ -1,3 +1,11 @@
+wset (0.2.1-1) stable; urgency=medium
+
+  * r rate changes only the values given: it no longer fills in xset's
+    660 ms and 25 a second, needs a delay, and keeps the rate when none is
+    given.
+
+ -- Komiljon Sobitov <komiljon.sobitov.uzb@gmail.com>  Tue, 20 Oct 2026 15:19:43 +0500
+
 wset (0.2.0-1) stable; urgency=medium
 
   * r rate works like xset's: 660 and 25 for missing values, an interval of

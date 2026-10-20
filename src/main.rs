@@ -27,22 +27,19 @@ const USAGE: &str = "\
 usage: wset [-d] option ...
     r [on|off]               turn keyboard auto-repeat on or off
     -r                       turn keyboard auto-repeat off
-    r rate [delay [rate]]    wait delay milliseconds (660 if not given) before a
-                             held key repeats, then repeat it rate times a
-                             second (25 if not given), and turn auto-repeat on
+    r rate delay [rate]      wait delay milliseconds before a held key repeats,
+                             then repeat it rate times a second, and turn
+                             auto-repeat on; without a rate it stays as it is
     q, -q                    show the current settings
     -d                       print debugging messages
     -h, --help               show this help
     -V, --version            show the version";
 
-/// xset's defaults for "r rate".
-const DEFAULT_DELAY: u32 = 660;
-const DEFAULT_RATE: u32 = 25;
-
 #[derive(Debug, PartialEq)]
 enum Action {
     Repeat(bool),
-    Rate(u32, u32),
+    /// A delay, and a rate if one was given.
+    Rate(u32, Option<u32>),
     Query,
 }
 
@@ -75,16 +72,12 @@ fn parse_args(args: impl IntoIterator<Item = String>) -> Result<Parsed, String> 
                 }
                 Some("rate") => {
                     args.next();
-                    // Like xset: a rate only after a delay, defaults for the rest.
-                    let delay = number(&mut args, "delay", 1..=10_000)?;
-                    let rate = match delay {
-                        Some(_) => number(&mut args, "rate", 1..=255)?,
-                        None => None,
-                    };
-                    actions.push(Action::Rate(
-                        delay.unwrap_or(DEFAULT_DELAY),
-                        rate.unwrap_or(DEFAULT_RATE),
-                    ));
+                    // A rate only after a delay, as in xset, but unlike xset
+                    // nothing is filled in: only what is given changes.
+                    let delay = number(&mut args, "delay", 1..=10_000)?
+                        .ok_or("r rate needs a delay in milliseconds, and optionally a rate")?;
+                    let rate = number(&mut args, "rate", 1..=255)?;
+                    actions.push(Action::Rate(delay, rate));
                 }
                 Some(n) if n.parse::<u32>().is_ok() => {
                     return Err("auto-repeat for single keys is not supported".into());
@@ -175,8 +168,10 @@ fn run(actions: &[Action]) -> Result<(), String> {
             Action::Rate(delay, rate) => {
                 let d = desktop.unwrap();
                 d.set_rate(delay, rate)?;
-                let rate = d.effective_rate(rate) as i32;
-                expected = Some(Box::new(move |r| r.delay == delay as i32 && r.rate == rate));
+                let rate = rate.map(|r| d.effective_rate(r) as i32);
+                expected = Some(Box::new(move |r| {
+                    r.delay == delay as i32 && r.rate > 0 && rate.is_none_or(|x| r.rate == x)
+                }));
             }
             Action::Query => {
                 let desktop = desktop.or_else(|| Desktop::detect().ok());
@@ -260,9 +255,10 @@ mod tests {
     #[test]
     fn args() {
         use Action::*;
-        assert_eq!(parse(&["r", "rate", "210", "30"]), run_(false, vec![Rate(210, 30)]));
-        assert_eq!(parse(&["r", "rate", "210", "q"]), run_(false, vec![Rate(210, 25), Query]));
-        assert_eq!(parse(&["r", "rate"]), run_(false, vec![Rate(660, 25)]));
+        assert_eq!(parse(&["r", "rate", "210", "30"]), run_(false, vec![Rate(210, Some(30))]));
+        assert_eq!(parse(&["r", "rate", "210", "q"]), run_(false, vec![Rate(210, None), Query]));
+        assert!(parse(&["r", "rate"]).unwrap_err().contains("needs a delay"));
+        assert!(parse(&["r", "rate", "q"]).unwrap_err().contains("needs a delay"));
         assert_eq!(parse(&["-d", "r", "-q"]), run_(true, vec![Repeat(true), Query]));
         assert_eq!(
             parse(&["r", "off", "-r", "r", "on"]),

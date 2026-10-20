@@ -29,10 +29,9 @@ wset [-d] option ...
 ```
 
 - `r` or `r on` turns auto-repeat on, `r off` or `-r` turns it off.
-- `r rate [delay [rate]]` waits `delay` milliseconds (1 to 10000) before a
+- `r rate delay [rate]` waits `delay` milliseconds (1 to 10000) before a
   held key repeats, then repeats it `rate` times a second (1 to 255), and
-  turns auto-repeat on. As with xset, a missing delay means 660 and a
-  missing rate 25.
+  turns auto-repeat on. Without a rate, the rate stays as it is.
 - `q` or `-q` shows the current settings, in the lines `xset q` uses for
   them:
 
@@ -46,6 +45,9 @@ wset [-d] option ...
 - `-h` or `--help` shows a summary, `-V` or `--version` the version.
 
 Options can be combined, as in `wset r rate 210 30 q`.
+
+wset changes nothing by itself: it doesn't run when it is installed or when
+you log in, and it only changes the values you give it.
 
 Like X, GNOME keeps the time between repeats, which xset and wset compute
 as 1000 / rate milliseconds; for some rates that makes the rate applications
@@ -66,6 +68,9 @@ wset sets them for every keyboard, including those that have their own
 
 ### Differences from xset
 
+- xset fills in 660 ms and 25 a second for values left out of `r rate`;
+  wset changes only the values you give, so `r rate` needs at least the
+  delay.
 - `-d` turns on debugging messages; it doesn't take a display.
 - Auto-repeat for single keys (`r 38`, `-r 38`) is not supported.
 - Only keyboard auto-repeat is supported, not the screen saver, DPMS, bell

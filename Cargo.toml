@@ -1,6 +1,6 @@
 [package]
 name = "wset"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2024"
 rust-version = "1.88"
 description = "Set keyboard auto-repeat on Wayland, like xset r rate"

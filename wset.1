@@ -20,6 +20,9 @@ uses the desktop's own settings: GSettings on GNOME, which keeps them across
 restarts, and
 .Xr swaymsg 1
 on Sway, which forgets them when it restarts.
+.Pp
+.Nm
+changes nothing by itself, only the values it is given.
 .Sh OPTIONS
 .Bl -tag -width Ds
 .It Fl d
@@ -28,13 +31,15 @@ Print debugging messages to stderr.
 Turn auto-repeat on.
 .It Ic r off , Fl r
 Turn auto-repeat off.
-.It Ic r rate Op Ar delay Op Ar rate
+.It Ic r rate Ar delay Op Ar rate
 Wait
 .Ar delay
-milliseconds (1 to 10000, 660 if not given) before a held key starts
-repeating, then repeat it
+milliseconds (1 to 10000) before a held key starts repeating, then repeat it
 .Ar rate
-times per second (1 to 255, 25 if not given), and turn auto-repeat on.
+times per second (1 to 255), and turn auto-repeat on.
+Without a
+.Ar rate ,
+the rate stays as it is.
 .It Ic q , Fl q
 Show the current settings, as the compositor reports them to applications.
 This works on any compositor.
@@ -56,5 +61,7 @@ Wait 210 ms, then repeat 30 times a second:
 .Sh CAVEATS
 Unlike
 .Xr xset 1 ,
+.Ic r rate
+fills in no values that are left out,
 .Fl d
 does not take a display, and auto-repeat cannot be set for single keys.

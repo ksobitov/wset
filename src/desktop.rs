@@ -86,15 +86,25 @@ impl Desktop {
         }
     }
 
-    /// Sets the delay and the rate and turns auto-repeat on, as xset does.
-    pub fn set_rate(self, delay: u32, rate: u32) -> Result<(), String> {
+    /// Sets the delay, and the rate if given, and turns auto-repeat on, as
+    /// xset does.
+    pub fn set_rate(self, delay: u32, rate: Option<u32>) -> Result<(), String> {
         match self {
             Desktop::Gnome => {
                 gsettings_set("delay", &delay.to_string())?;
-                gsettings_set("repeat-interval", &interval(rate).to_string())?;
+                if let Some(r) = rate {
+                    gsettings_set("repeat-interval", &interval(r).to_string())?;
+                }
                 gsettings_set("repeat", "true")
             }
-            Desktop::Sway => sway_set(Some(delay), Some(rate)),
+            // Sway turns repeat on with any rate above 0.
+            Desktop::Sway => {
+                let rate = match rate {
+                    Some(r) => r,
+                    None => self.settings()?.rate,
+                };
+                sway_set(Some(delay), Some(rate))
+            }
         }
     }
 
