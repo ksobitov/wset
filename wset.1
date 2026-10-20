@@ -1,0 +1,49 @@
+.Dd $Mdocdate: October 20 2026$
+.Dt WSET 1
+.Os
+.Sh NAME
+.Nm wset
+.Nd change keyboard auto-repeat on Wayland
+.Sh SYNOPSIS
+.Nm
+.Op Fl d
+.Ar option ...
+.Sh DESCRIPTION
+.Nm
+changes keyboard auto-repeat with the same options as
+.Xr xset 1 .
+Wayland has no protocol for this, so
+.Nm
+uses the desktop's own settings: GSettings on GNOME, which keeps them across
+restarts, and
+.Xr swaymsg 1
+on Sway, which forgets them when it restarts.
+.Sh OPTIONS
+.Bl -tag -width Ds
+.It Fl d
+Print debugging messages to stderr.
+.It Ic r Op Ic on
+Turn auto-repeat on.
+.It Ic r off , Fl r
+Turn auto-repeat off.
+.It Ic r rate Op Ar delay Op Ar rate
+Wait
+.Ar delay
+milliseconds before a held key starts repeating, then repeat it
+.Ar rate
+times per second.
+Without values, go back to the desktop's defaults.
+.It Ic q
+Show the current settings, as the compositor reports them to applications.
+This works on any compositor.
+.El
+.Pp
+Options are carried out in order, so
+.Ql wset r rate 210 30 q
+shows the new settings.
+.Sh EXAMPLES
+Wait 210 ms, then repeat 30 times a second:
+.Pp
+.Dl $ wset r rate 210 30
+.Sh SEE ALSO
+.Xr xset 1

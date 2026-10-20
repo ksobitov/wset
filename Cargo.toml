@@ -1,0 +1,38 @@
+[package]
+name = "wset"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+description = "Set keyboard auto-repeat on Wayland, like xset r rate"
+license = "MIT"
+repository = "https://github.com/ksobitov/wset"
+homepage = "https://github.com/ksobitov/wset"
+readme = "README.md"
+keywords = ["wayland", "xset", "keyboard", "repeat"]
+categories = ["command-line-utilities"]
+exclude = ["/packaging"]
+
+[dependencies]
+wayland-client = "0.31.15"
+
+[package.metadata.deb]
+maintainer = "Komiljon Sobitov <komiljon.sobitov.uzb@gmail.com>"
+copyright = "2026 Komiljon Sobitov <komiljon.sobitov.uzb@gmail.com>"
+license-file = ["LICENSE", "0"]
+section = "utils"
+depends = "$auto"
+extended-description = """\
+wset changes keyboard auto-repeat on Wayland, with the same commands as \
+xset: wset r rate 210 30 sets a 210 ms delay and 30 repeats per second. \
+It supports GNOME and Sway, and wset q shows the settings any compositor \
+uses."""
+assets = [
+    ["target/release/wset", "usr/bin/", "755"],
+    ["wset.1", "usr/share/man/man1/", "644"],
+    ["README.md", "usr/share/doc/wset/", "644"],
+]
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
